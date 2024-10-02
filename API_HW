@@ -1,0 +1,38 @@
+import requests
+
+# 1. Вывести продукты, цена которых <20
+response = requests.get('https://fakestoreapi.com/products')
+products = response.json()
+cheap_products = [product for product in products if product['price'] < 20]
+print("Продукты, цена которых <20:")
+for product in cheap_products:
+    print(f"Название: {product['title']}, Цена: {product['price']}")
+
+# 2. Вывести все категории
+response = requests.get('https://fakestoreapi.com/products/categories')
+categories = response.json()
+print("\nВсе категории:")
+for category in categories:
+    print(category)
+
+# 3. Вывести все продукты с категорией "jewelery"
+response = requests.get('https://fakestoreapi.com/products/category/jewelery')
+jewelry_products = response.json()
+print("\nПродукты с категорией 'jewelery':")
+for product in jewelry_products:
+    print(f"Название: {product['title']}, Цена: {product['price']}")
+
+# 4. Вывести всех пользователей
+response = requests.get('https://fakestoreapi.com/users')
+users = response.json()
+print("\nВсе пользователи:")
+for user in users:
+    print(f"Имя: {user['name']}, Email: {user['email']}")
+
+# 5. Добавить пользователя со своим именем
+new_user = {
+    "name": "Никита",
+    "email": "Nikita@yandex.com",
+    "password": "Nikita_password",
+}
+response = requests.post('https://fakestoreapi.com/users', json=new_user)
